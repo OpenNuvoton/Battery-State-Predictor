@@ -1,0 +1,7 @@
+model_file: ..\workspace\trained_model\BMS_SOH_INT8.tflite
+model_test_data_file: ..\workspace\exported_test_data\SOH_test_data.h
+model_type: soh
+project_binary_file: ..\workspace\ProjGen_NuMaker-X-M55M1D\M55M1BSP-3.01.004\SampleCode\MachineLearning\BatterySOHEstimation\Keil\build\BatterySOHEstimation.bin
+project_path: ..\workspace\ProjGen_NuMaker-X-M55M1D\M55M1BSP-3.01.004\SampleCode\MachineLearning\BatterySOHEstimation
+target_board: NuMaker-X-M55M1D
+workspace: ..\workspace

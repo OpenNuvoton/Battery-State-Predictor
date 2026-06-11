@@ -1,0 +1,225 @@
+cbuild-run:
+  generated-by: csolution version 2.8.0
+  solution: examples_ac6.csolution.yml
+  target-type: VHT-Corstone-310
+  compiler: AC6
+  device: ARM::SSE-310-MPS3
+  device-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+  system-descriptions:
+    - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/SVD/SSE310.svd
+      type: svd
+  output:
+    - file: out/bayes/VHT-Corstone-310/Release/bayes.axf
+      info: generate by bayes.Release+VHT-Corstone-310
+      type: elf
+  system-resources:
+    memory:
+      - name: ITCM_NS
+        access: rwxn
+        start: 0x00000000
+        size: 0x00008000
+        default: true
+        alias: ITCM_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: SRAM_NS
+        access: rwxn
+        start: 0x01000000
+        size: 0x00200000
+        default: true
+        startup: true
+        alias: SRAM_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM0_NS
+        access: rwxn
+        start: 0x20000000
+        size: 0x00002000
+        default: true
+        alias: DTCM0_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM1_NS
+        access: rwxn
+        start: 0x20002000
+        size: 0x00002000
+        default: true
+        alias: DTCM1_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM2_NS
+        access: rwxn
+        start: 0x20004000
+        size: 0x00002000
+        default: true
+        alias: DTCM2_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM3_NS
+        access: rwxn
+        start: 0x20006000
+        size: 0x00002000
+        default: true
+        alias: DTCM3_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: ISRAM0_NS
+        access: rwxn
+        start: 0x21000000
+        size: 0x00200000
+        default: true
+        alias: ISRAM0_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: ISRAM1_NS
+        access: rwxn
+        start: 0x21200000
+        size: 0x00200000
+        default: true
+        alias: ISRAM1_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: QSPI_SRAM_NS
+        access: rwxn
+        start: 0x28000000
+        size: 0x00800000
+        default: true
+        alias: QSPI_SRAM_S
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: ITCM_S
+        access: rwxs
+        start: 0x10000000
+        size: 0x00008000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: SRAM_S
+        access: rwxs
+        start: 0x11000000
+        size: 0x00200000
+        default: true
+        startup: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM0_S
+        access: rwxs
+        start: 0x30000000
+        size: 0x00002000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM1_S
+        access: rwxs
+        start: 0x30002000
+        size: 0x00002000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM2_S
+        access: rwxs
+        start: 0x30004000
+        size: 0x00002000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: DTCM3_S
+        access: rwxs
+        start: 0x30006000
+        size: 0x00002000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: ISRAM0_S
+        access: rwxs
+        start: 0x31000000
+        size: 0x00200000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: ISRAM1_S
+        access: rwxs
+        start: 0x31200000
+        size: 0x00200000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      - name: QSPI_SRAM_S
+        access: rwxs
+        start: 0x38000000
+        size: 0x00800000
+        default: true
+        from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+  debugger:
+    - name: <default>
+      port: swd
+      clock: 10000000
+      dbgconf: projects/RTE/Device/SSE-310-MPS3/CM85.dbgconf
+  debug-vars:
+    vars: |
+      // Debug Authentication Variables
+      __var DAuthFixed  = 0x1;     // 1 - Use fixed authentication, 0 - Ask for user input
+      __var DAuthConfig = 0xF;     // Authentication Value (Security Control Block)
+      // Bit 0 - Invasive Debug (Hardwired to 1)
+      // Bit 1 - Non-Invasive Debug (Hardwired to 1)
+      // Bit 2 - Invasive Secure Debug
+      // Bit 3 - Non-Invasive Secure Debug
+  debug-sequences:
+    - name: ResetProcessor
+    - name: DebugDeviceUnlock
+      blocks:
+        - execute: |
+            __var DAuthUserInput  = 0;
+            __var DAUTHSTATUS_Val = 0;
+            __var DHCSR_Val       = 0;
+            __var SecureDebugEna   = 0;
+            __var SecureDebugAvail = 0;
+            __var DAuthVal         = 0;
+            __var SECDBGSTAT_Val   = 0;
+            __var SECDBGSET_Val    = 0;
+            __var SECDBGCLR_Val    = 0;
+            __var RESET_MASK       = 0;
+
+            DAUTHSTATUS_Val  = Read32(0xE000EFB8);    // struct CoreDebug_Type of v8m/v8.1m
+            DHCSR_Val        = Read32(0xE000EDF0);    // struct CoreDebug_Type of v8m/v8.1m
+            SecureDebugAvail = (DAUTHSTATUS_Val & 0x00000020) ? 1 : 0;  // SID: Secure Invasive Debug Implemented
+
+            RESET_MASK  = Read32(0x58021104);  // SSE-310 System Control Element - System Control register block - RESET_MASK register
+            RESET_MASK |= (1 << 4) | (1 << 6);   // RESET_MASK: Enable SYSRESETREQ0_EN and LOCKUP0_EN
+            Write32(0x58021104, RESET_MASK);
+        - info: Configure Debug Authentication if Security Extensions available
+          if: SecureDebugAvail
+          blocks:
+            - execute: |
+                SecureDebugEna = ((DHCSR_Val & 0x00100000) || ((DAUTHSTATUS_Val & 0x00000030) == 0x00000030)) ? 1 : 0;
+            - if: DAuthFixed
+              execute: |
+                // Debug Authentication as per Debug Configuration File
+                DAuthVal = DAuthConfig;
+            - if: DAuthFixed == 0
+              blocks:
+                - execute: |
+                    DAuthUserInput = Query(1, "Enable Secure Debug?", 3);
+                - if: DAuthUserInput == 3
+                  execute: |
+                    // Enable Secure Debug
+                    DAuthVal = 0xF;
+                - if: DAuthUserInput != 3
+                  execute: |
+                    // Disable Secure Debug
+                    DAuthVal = 0x3;
+            - if: SecureDebugEna
+              execute: |
+                // Read Secure Debug Authentication Status
+                SECDBGSTAT_Val = Read32(0x58021000); // SSE-310 System Control Element - System Control register block - SECDBGSTAT register
+
+                // Assemble SECDBGSET and SECDBGCLR Values
+                SECDBGSET_Val  = 0x000000AA;                                // Use internal signals:
+                // DBGEN_SEL_SET   - 1,
+                // NIDEN_SEL_SET   - 1,
+                // SPIDEN_SEL_SET  - 1,
+                // SPNIDEN_SEL_SET - 1
+
+                SECDBGSET_Val |=  DAuthVal & 0x1;                       // DBGEN_I_SET
+                SECDBGSET_Val |= (DAuthVal & 0x2) << 1;           // NIDEN_I_SET
+                SECDBGSET_Val |= (DAuthVal & 0x4) << 2;           // SPIDEN_I_SET
+                SECDBGSET_Val |= (DAuthVal & 0x8) << 3;           // SPNIDEN_I_SET
+
+                SECDBGCLR_Val |=   (DAuthVal ^ 0x1) & 0x1;              // DBGEN_I_SET
+                SECDBGCLR_Val |= (((DAuthVal ^ 0x2) & 0x2) << 1); // NIDEN_I_SET
+                SECDBGCLR_Val |= (((DAuthVal ^ 0x4) & 0x4) << 2); // SPIDEN_I_SET
+                SECDBGCLR_Val |= (((DAuthVal ^ 0x8) & 0x8) << 3); // SPNIDEN_I_SET
+
+                // Write Secure Debug Authentication Set Register
+                Write32(0x58021004, SECDBGSET_Val); // SSE-310 System Control Element - System Control register block - SECDBGSTAT register
+
+                // Write Secure Debug Authentication Clear Register
+                Write32(0x58021008, SECDBGCLR_Val); // SSE-310 System Control Element - System Control register block - SECDBGSTAT register
+            - if: SecureDebugEna == 0
+              blocks:
+                - if: DAuthVal & 0x4
+                  execute: |
+                    Query(0, "Cannot configure Debug Authentication, secure debug disabled! Please reboot Board!", 1);
