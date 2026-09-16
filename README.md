@@ -43,22 +43,39 @@ Battery-State-Predictor/
 
 ## Prerequisites
 To run the pipeline smoothly on a Windows environment, ensure the following are installed:
-* Python 3.10+ (with numpy, tensorflow/keras, jinja2, and pyyaml)
+* [Pixi](https://pixi.sh/) for managing the project's Python environment and dependencies.
 * [Keil MDK](https://www.nuvoton.com/tool-and-software/ide-and-compiler/keil-download/) (uVision 5) for compiling the M55M1 .uvprojx projects.
 * [Nuvoton Nu-Link_Keil_Driver](https://www.nuvoton.com/tool-and-software/ide-and-compiler/index.html) for flashing the firmware to the NuMaker board.
-* Miniforge
 
-## Miniforge installation
-To install Miniforge, download the installer for windows system from the [Conda-Forge Download Page](https://conda-forge.org/download/) or the [GitHub Releases Page](https://github.com/conda-forge/miniforge/releases).
+## Pixi installation and environment setup
+Pixi is a fast cross-platform package manager and workflow tool. It manages both conda and PyPI packages defined in `pixi.toml` and locked in `pixi.lock`.
 
-1. Download the latest Windows executable (usually Miniforge3-Windows-x86_64.exe) from the Conda-Forge Download Page.
-2. Double-click the `.exe` file to launch the installation wizard.
-3. Follow the prompts. It is highly recommended to uncheck "Register Miniforge3 Python as my default Python" if you already have another Python installation on your system.
-4. Once completed, use the "Miniforge Prompt" from your start menu to access the conda and mamba tools.
-5. To ensure a consistent Python environment, it is recommended to create a Python environment from the `Conda environment YAML` file on Miniforge.
+### 1. Install Pixi
+To install Pixi on Windows, run the following command in PowerShell:
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://pixi.sh/install.ps1 | iex"
 ```
-conda env create -f environment.yml
-conda activate Battery_State_Predictor
+Or install via `winget`:
+```powershell
+winget install prefix-dev.pixi
+```
+Alternatively, download the Windows installer or binary from the [Pixi Releases Page](https://github.com/prefix-dev/pixi/releases).
+
+### 2. Set up the project environment
+In the root directory of the project, run:
+```bash
+pixi install
+```
+This automatically installs Python (3.10.20) and all required dependencies.
+
+### 3. Activate the environment
+To enter the project shell environment:
+```bash
+pixi shell
+```
+Once inside the Pixi shell, you can execute all commands (e.g. `python BatteryStatePredictor.py ...`) directly. Alternatively, you can run commands directly without entering the shell using `pixi run`, for example:
+```bash
+pixi run python BatteryStatePredictor.py <command>
 ```
 
 ## Usage
@@ -108,9 +125,7 @@ python BatteryStatePredictor.py flash
 
 ## Workflow
 The following steps explain how to build the SOH/SOC models step by step and deploy them to the M55M1.
-1. Clone the entire Battery State Predictor project with `git clone`, then follow the [Miniforge installation](#miniforge-installation) section above to create and activate the Python environment.
-
-![conda_activate](./pictures/conda_activate.png)
+1. Clone the entire Battery State Predictor project with `git clone`, then follow the [Pixi installation and environment setup](#pixi-installation-and-environment-setup) section above to set up the environment (`pixi install`) and activate it (`pixi shell`).
 
 2. Prepare the NASA-format dataset containing battery current, voltage, and temperature data, then use the `create` command to train the model. Refer to step 1 in [Usage](#usage). Model training may take some time, so please wait patiently.
 
