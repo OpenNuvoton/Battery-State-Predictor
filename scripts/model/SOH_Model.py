@@ -119,7 +119,7 @@ def SOHModel(workspace, dataset_path, train_data, test_data, epochs):
 
     x = layers.GlobalAveragePooling1D()(x)
     x = layers.Dense(256, activation='relu')(x)
-    output = layers.Dense(1, activation='relu')(x)
+    output = layers.Dense(1)(x)
 
     model = keras.Model(inputs=input, outputs=output)
     model.summary()
