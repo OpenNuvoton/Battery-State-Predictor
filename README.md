@@ -73,9 +73,15 @@ To enter the project shell environment:
 ```bash
 pixi shell
 ```
-Once inside the Pixi shell, you can execute all commands (e.g. `python BatteryStatePredictor.py ...`) directly. Alternatively, you can run commands directly without entering the shell using `pixi run`, for example:
+After activation, your prompt is prefixed with the environment name `(Battery_State_Predictor)`, indicating that the Pixi shell is active, for example:
+```
+(Battery_State_Predictor) PS C:\NuMicro\Battery-State-Predictor>
+```
+Once inside the Pixi shell, you can execute all commands (e.g. code generation command `python BatteryStatePredictor.py generate`) directly.
+
+Alternatively, you can run commands directly without entering the shell using `pixi run`, for example:
 ```bash
-pixi run python BatteryStatePredictor.py <command>
+pixi run <command>
 ```
 
 ## Usage
@@ -125,7 +131,7 @@ python BatteryStatePredictor.py flash
 
 ## Workflow
 The following steps explain how to build the SOH/SOC models step by step and deploy them to the M55M1.
-1. Clone the entire Battery State Predictor project with `git clone`, then follow the [Pixi installation and environment setup](#pixi-installation-and-environment-setup) section above to set up the environment (`pixi install`) and activate it (`pixi shell`).
+1. Clone the entire Battery-State-Predictor project with `git clone`, then follow the [Pixi installation and environment setup](#pixi-installation-and-environment-setup) section above to set up the environment (`pixi install`) and activate it (`pixi shell`).
 
 2. Prepare the NASA-format dataset containing battery current, voltage, and temperature data, then use the `create` command to train the model. Refer to step 1 in [Usage](#usage). Model training may take some time, so please wait patiently.
 
@@ -163,3 +169,27 @@ If you frequently encounter "Path too long" errors when downloading or extractin
 3. Find the `LongPathsEnabled` value. (If it doesn't exist, right-click inside the right pane, select New > DWORD (32-bit) Value, and name it `LongPathsEnabled`).
 4. Double-click it and set the Value data to `1`.
 5. Click OK and restart your PC.
+
+## Troubleshooting
+
+### PowerShell execution policy error on `pixi shell`
+On some PCs, running `pixi shell` in PowerShell fails with an error similar to:
+```
+File C:\Users\<user>\AppData\Local\Temp\.tmpXXXXXX.ps1 cannot be loaded because running scripts is disabled on this
+system. For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+    + CategoryInfo          : SecurityError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+```
+This happens because `pixi shell` generates a temporary `.ps1` activation script, but PowerShell's default `Restricted` execution policy blocks it from running.
+
+To fix it, set the execution policy for the current user to `RemoteSigned` (locally created scripts can run; downloaded scripts must be signed). This does **not** require administrator privileges:
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+Type `Y` to confirm, then run `pixi shell` again. You can verify the setting with:
+```powershell
+Get-ExecutionPolicy -List
+```
+Confirm the `CurrentUser` row shows `RemoteSigned`.
+
+> **Note:** If your organization enforces the execution policy via Group Policy (GPO), or you prefer not to change it, you can alternatively run `pixi shell` from **cmd.exe** or **Git Bash** to avoid the PowerShell restriction.
