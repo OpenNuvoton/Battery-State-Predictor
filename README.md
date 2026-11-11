@@ -77,6 +77,8 @@ After activation, your prompt is prefixed with the environment name `(Battery_St
 ```
 (Battery_State_Predictor) PS C:\NuMicro\Battery-State-Predictor>
 ```
+> **Note:** If running `pixi shell` produces an error message (e.g. a PowerShell execution policy error), refer to the [Troubleshooting](#troubleshooting) section below for solutions.
+
 Once inside the Pixi shell, you can execute all commands (e.g. code generation command `python BatteryStatePredictor.py generate`) directly.
 
 Alternatively, you can run commands directly without entering the shell using `pixi run`, for example:
